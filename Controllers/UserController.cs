@@ -5,7 +5,6 @@ using ServiceReference1;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System;
 
 namespace SoapConsumer.Controllers
 {
@@ -43,11 +42,12 @@ namespace SoapConsumer.Controllers
         }
 
         [HttpGet]
+        [Route("ASP")]
         [Authorize]
         [ServiceFilter(typeof(AppActionFilter))]
         public async Task<ServiceReference1.User> Select([FromQuery] int userId) =>
             new ServiceSoapClient(ServiceSoapClient.EndpointConfiguration.ServiceSoap)
-                .SelectUserAsync(userId).Result.Body.SelectUserResult;    
+                .SelectUserAsync(userId).Result.Body.SelectUserResult;
 
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] ServiceReference1.User user) =>
